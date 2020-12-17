@@ -3,6 +3,14 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const API_KEY = '86a9abf0018f9fe698c39241d29ee0ab';
 const LOACAL_BASE_URL = 'http://localHost:8000/api/';
 
+//dom elements
+const zipInput = document.getElementById('zip');
+const userFeelingInput = document.getElementById('feelings');
+const generateButton = document.getElementById('generate');
+const dateElelment = document.getElementById('date');
+const tempElement = document.getElementById('temp');
+const contentElement = document.getElementById('content');
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -33,7 +41,7 @@ function composeUrl(zip, baseUrl = BASE_URL, apiKey = API_KEY) {
 }
 
 const postWeatherData = async(url = '', data = {}) => {
-    let newData = await fetch(url, {
+    await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
@@ -41,7 +49,7 @@ const postWeatherData = async(url = '', data = {}) => {
     });
 
     try {
-        console.log('SUCCESS')
+        console.log(SUCCESS)
     } catch (error) {
         console.log(error);
     }
@@ -61,10 +69,21 @@ const getWeatherData = async(url = '', onSuccess = () => {}) => {
     }
 }
 
-getWeatherByZipCode(94207)
-    .then(val => postWeatherData(`${LOACAL_BASE_URL}addWeatherData`, setProjectData(val, newDate, 'hahahah')))
-    .then(getWeatherData(`${LOACAL_BASE_URL}getWeatherData`, onSuccess));
+generateButton.addEventListener('click', startWeatherChain);
+
+function startWeatherChain() {
+    getWeatherByZipCode(zipInput.value.trim())
+        .then(val => postWeatherData(`${LOACAL_BASE_URL}addWeatherData`, setProjectData(val, newDate, userFeelingInput.value)))
+        .then(getWeatherData(`${LOACAL_BASE_URL}getWeatherData`, onSuccess));
+}
 
 function onSuccess(data) {
     console.log(data);
+    dateElelment.innerHTML = drawWeatherData('Date', data.date);
+    tempElement.innerHTML = drawWeatherData('Temperature', data.temperature)
+    contentElement.innerHTML = drawWeatherData('Content', data.userResponse)
+}
+
+function drawWeatherData(title, content) {
+    return `<p><strong>${title}</strong>: ${content}</p>`
 }

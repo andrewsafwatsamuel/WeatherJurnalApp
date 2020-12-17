@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { TIMEOUT } = require('dns');
 
 //main app setup
 const app = express();
@@ -30,12 +31,12 @@ app.post(`${root}/addWeatherData`, doOnPost);
 
 function doOnPost(request, response) {
     projectData = request.body;
-    response.send();
+    //response.send(projectData);
 }
 
 //get Project Data
 app.get(`${root}/getWeatherData`, sendProjectData);
 
 function sendProjectData(request, response) {
-    response.send(projectData);
+    setTimeout(() => { response.send(projectData); }, 500);
 }
