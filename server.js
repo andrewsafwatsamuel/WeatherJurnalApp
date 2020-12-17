@@ -25,18 +25,6 @@ function onListen() {
 let projectData = {};
 const root = '/api'
 
-//projectData.push(setProjectData(35, '1-1-2020', 'fsafsafda'));
-//projectData.push(setProjectData(30, '10-10-2020', 'lkflkjl'));
-
-//defines project data
-function setProjectData(temperature, date, userResponse) {
-    return {
-        temperature: temperature,
-        date: date,
-        userResponse: userResponse
-    };
-}
-
 //add new data
 app.post(`${root}/addWeatherData`, doOnPost);
 
