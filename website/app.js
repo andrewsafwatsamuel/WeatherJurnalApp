@@ -1,6 +1,7 @@
 /* Global Variables */
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const API_KEY = '86a9abf0018f9fe698c39241d29ee0ab';
+const LOACAL_BASE_URL = 'http://localHost:8000/api/';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -40,11 +41,30 @@ const postWeatherData = async(url = '', data = {}) => {
     });
 
     try {
-        console.log(newData)
+        console.log('SUCCESS')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+const getWeatherData = async(url = '', onSuccess = () => {}) => {
+    let data = await fetch(url, {
+        method: 'GET',
+        credentials: 'same-origin'
+    });
+    try {
+        let json = await data.json();
+        onSuccess(json);
     } catch (error) {
         console.log(error);
     }
 }
 
 getWeatherByZipCode(94207)
-    .then(val => postWeatherData('http:/localHost:8000/api/addWeatherData', setProjectData(val, newDate, 'hahahah')));
+    .then(val => postWeatherData(`${LOACAL_BASE_URL}addWeatherData`, setProjectData(val, newDate, 'hahahah')))
+    .then(getWeatherData(`${LOACAL_BASE_URL}getWeatherData`, onSuccess));
+
+function onSuccess(data) {
+    console.log(data);
+}

@@ -29,12 +29,12 @@ const root = '/api'
 app.post(`${root}/addWeatherData`, doOnPost);
 
 function doOnPost(request, response) {
-    projectData = (request.body);
+    projectData = request.body;
     response.send();
 }
 
 //get Project Data
-app.get(`${root}/getAllData`, sendProjectData);
+app.get(`${root}/getWeatherData`, sendProjectData);
 
 function sendProjectData(request, response) {
     response.send(projectData);
