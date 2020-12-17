@@ -21,4 +21,26 @@ function onListen() {
     console.log(`server is running on http://localhost:${port}`)
 }
 
-projectData = {};
+//api
+const projectData = {};
+const root = '/api'
+
+
+//defines project data
+function setProjectData(temperature, date, userResponse) {
+    return {
+        temperature: temperature,
+        date: date,
+        userResponse: userResponse
+    };
+}
+
+//add new data
+app.post(`${root}/addWeatherData`, doOnPost);
+
+function doOnPost(request, response) {
+    projectData.push(request.body);
+    response.send();
+}
+
+//get Project Data
