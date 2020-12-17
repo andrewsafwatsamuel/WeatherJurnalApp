@@ -22,9 +22,11 @@ function onListen() {
 }
 
 //api
-const projectData = {};
+let projectData = {};
 const root = '/api'
 
+//projectData.push(setProjectData(35, '1-1-2020', 'fsafsafda'));
+//projectData.push(setProjectData(30, '10-10-2020', 'lkflkjl'));
 
 //defines project data
 function setProjectData(temperature, date, userResponse) {
@@ -39,8 +41,13 @@ function setProjectData(temperature, date, userResponse) {
 app.post(`${root}/addWeatherData`, doOnPost);
 
 function doOnPost(request, response) {
-    projectData.push(request.body);
+    projectData = (request.body);
     response.send();
 }
 
 //get Project Data
+app.get(`${root}/getAllData`, sendProjectData);
+
+function sendProjectData(request, response) {
+    response.send(projectData);
+}
