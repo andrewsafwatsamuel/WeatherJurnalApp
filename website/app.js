@@ -23,10 +23,28 @@ const getWeatherByZipCode = async(zipCode, url = composeUrl(zipCode)) => {
         return jsonWeather.main.temp;
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
 function composeUrl(zip, baseUrl = BASE_URL, apiKey = API_KEY) {
     return `${baseUrl}?zip=${zip}&appid=${apiKey}`;
 }
+
+const postWeatherData = async(url = '', data = {}) => {
+    let newData = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    try {
+        console.log(newData)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+getWeatherByZipCode(94207)
+    .then(val => postWeatherData('http:/localHost:8000/api/addWeatherData', setProjectData(val, newDate, 'hahahah')));
