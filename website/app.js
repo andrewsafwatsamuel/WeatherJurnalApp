@@ -13,7 +13,7 @@ const contentElement = document.getElementById('content');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = `${d.getMonth()+1}.${d.getDate()}.${d.getFullYear()}`;
 
 //defines project data
 function setProjectData(temperature, date, userResponse) {
