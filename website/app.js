@@ -2,6 +2,7 @@
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const API_KEY = '86a9abf0018f9fe698c39241d29ee0ab';
 const LOACAL_BASE_URL = 'http://localHost:8000/api/';
+const TEMP_UNIT = 'imperial';
 
 //dom elements
 const zipInput = document.getElementById('zip');
@@ -36,8 +37,8 @@ const getWeatherByZipCode = async(zipCode, url = composeUrl(zipCode)) => {
     }
 }
 
-function composeUrl(zip, baseUrl = BASE_URL, apiKey = API_KEY) {
-    return `${baseUrl}?zip=${zip}&appid=${apiKey}`;
+function composeUrl(zip, baseUrl = BASE_URL, apiKey = API_KEY, unit = TEMP_UNIT) {
+    return `${baseUrl}?zip=${zip}&units=${unit}&appid=${apiKey}`;
 }
 
 const postWeatherData = async(url = '', data = {}) => {
