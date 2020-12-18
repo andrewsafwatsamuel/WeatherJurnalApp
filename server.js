@@ -30,7 +30,10 @@ const root = '/api'
 app.post(`${root}/addWeatherData`, doOnPost);
 
 function doOnPost(request, response) {
-    projectData = request.body;
+    const data = request.body;
+    projectData["temperature"] = data.temperature;
+    projectData["userResponse"] = data.userResponse;
+    projectData["date"] = data.date;
 }
 
 //get Project Data
