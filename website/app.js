@@ -52,10 +52,7 @@ const postWeatherData = async(url = '', data = {}) => {
 
 
 const getWeatherData = async(url = '', onSuccess = () => {}) => {
-    let data = await fetch(url, {
-        method: 'GET',
-        credentials: 'same-origin'
-    });
+    let data = await fetch(url);
     try {
         let json = await data.json();
         onSuccess(json);
