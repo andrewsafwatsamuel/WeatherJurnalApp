@@ -31,7 +31,6 @@ app.post(`${root}/addWeatherData`, doOnPost);
 
 function doOnPost(request, response) {
     projectData = request.body;
-    //response.send(projectData);
 }
 
 //get Project Data

@@ -47,12 +47,6 @@ const postWeatherData = async(url = '', data = {}) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
-
-    try {
-        console.log(SUCCESS)
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 
@@ -78,7 +72,6 @@ function startWeatherChain() {
 }
 
 function onSuccess(data) {
-    console.log(data);
     dateElelment.innerHTML = drawWeatherData('Date', data.date);
     tempElement.innerHTML = drawWeatherData('Temperature', data.temperature)
     contentElement.innerHTML = drawWeatherData('Content', data.userResponse)
